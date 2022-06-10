@@ -1,0 +1,12 @@
+# directory configurations - change the below three lines as appropriate
+dir_ckpt: "/users/gyungin/reco/ckpt"  # Change this to your checkpoint directory.
+dir_dataset: "/users/gyungin/datasets/cocostuff"  # Change this to your dataset directory.
+dir_pseudo_masks: "/users/gyungin/denseclip/analysis/reco/cosegmentation/ckpt_v3/coco_stuff_train10k/deit_s_16_sin_in_train_ce_ta/k050/dt_crf"
+
+dataset_name: "coco_stuff"  # ["cityscapes", "coco_stuff", "kitti_step"]
+
+# hyperparameters for networks
+batch_size: 8
+iter_val: 1000
+n_workers: 8
+segmentor_name: "deeplabv3plus_resnet101"  # ["deeplabv3plus_resnet101", "deeplabv3plus_resnet50", "deeplabv3plus_mobilenet"]

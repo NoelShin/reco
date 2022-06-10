@@ -1,0 +1,23 @@
+# directory configurations - change the below three lines as appropriate
+dir_ckpt: "/users/gyungin/reco/ckpt"  # Change this to your checkpoint directory.
+dir_dataset: "/users/gyungin/datasets/cityscapes"  # Change this to your dataset directory.
+dir_imagenet: "/users/gyungin/datasets/ImageNet2012"  # Change this to your ImageNet directory.
+imagenet_split: "train"  # Note that imagenet is used as an index set. "train" or "val" are available options.
+
+dataset_name: "cityscapes"  # ["cityscapes", "coco_stuff", "kitti_step", "pascal_context"]
+
+# hyperparameters for networks
+clip_arch: "ViT-L/14@336px"  # For image retrieval. ["RN50", "RN50x16", "RN50x64", "ViT-L/14@336px"]
+dense_clip_arch: "RN50x16"  # ["RN50", "RN50x16", "RN50x64"]
+dense_clip_inference: true
+encoder_arch: "DeiT-S/16-SIN"  # For an image encoder. ["RN50", "RN50x16", "RN50x64", "ViT-B/32", "ViT-B/16", "ViT-L/14", "mocov2", "swav", "dino_small", "dino_base", "DeiT-S/16-SIN"]
+patch_size: 16
+
+# hyperparameters for ReCo/ReCo+ framework
+batch_size: 16
+context_categories: ["tree", "sky", "building", "road", "person"]
+context_elimination: true
+
+n_imgs: 50  # the number of images of the same category
+n_workers: 16
+text_attention: true

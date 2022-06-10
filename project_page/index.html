@@ -1,0 +1,377 @@
+<script src="https://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+
+<style type="text/css">
+	body {
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+		font-weight:300;
+		font-size:18px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 1100px;
+	}
+
+	h1 {
+		font-size:32px;
+		font-weight:300;
+	}
+
+	a:link,a:visited
+	{
+		color: #1367a7;
+		text-decoration: none;
+	}
+	a:hover {
+		color: #208799;
+	}
+
+	td.dl-link {
+		height: 160px;
+		text-align: center;
+		font-size: 22px;
+	}
+
+	.layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		5px 5px 0 0px #fff, /* The second layer */
+		5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		10px 10px 0 0px #fff, /* The third layer */
+		10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
+		15px 15px 0 0px #fff, /* The fourth layer */
+		15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
+		20px 20px 0 0px #fff, /* The fifth layer */
+		20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
+		25px 25px 0 0px #fff, /* The fifth layer */
+		25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
+		margin-left: 10px;
+		margin-right: 45px;
+	}
+
+	.paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		0px 0px 1px 1px rgba(0,0,0,0.35); /* The top layer shadow */
+
+		margin-left: 10px;
+		margin-right: 45px;
+	}
+
+
+	.layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		5px 5px 0 0px #fff, /* The second layer */
+		5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		10px 10px 0 0px #fff, /* The third layer */
+		10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+		margin-top: 5px;
+		margin-left: 10px;
+		margin-right: 30px;
+		margin-bottom: 5px;
+	}
+
+	.vert-cent {
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	hr
+	{
+		border: 0;
+		height: 1px;
+		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+	}
+
+	.row_imgs {
+	  text-align:center;
+	}
+
+	.row_imgs img {
+		display:inline-block;
+    margin:5px 20px;
+    padding:5px;
+	}
+
+</style>
+
+<html>
+<head>
+	<title>Unsupervised Salient Object Detection with Spectral Cluster Voting</title>
+	<meta property="og:image" content="Path to my teaser.png"/> <!-- Facebook automatically scrapes this. Go to https://developers.facebook.com/tools/debug/ if you update and want to force Facebook to rescrape. -->
+	<meta property="og:title" content="All you need are a few pixels: semantic segmentation with PixelPick" />
+	<meta property="og:description" content="Paper description." />
+
+	<!-- Get from Google Analytics -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src=""></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-75863369-6');
+	</script>
+
+	<!--Enable LaTeX within html5-->
+
+	<script type="text/javascript" async
+		src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+
+</head>
+
+<body>
+	<br>
+	<center>
+		<span style="font-size:32px">ReCo: Retrieve and Co-segment for Zero-shot Transfer</span>
+		<table align=center width=600px>
+				<tr>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:18pt"><a href="https://www.robots.ox.ac.uk/~gyungin/">Gyungin Shin</a></span>
+						</center>
+					</td>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:18pt"><a href="https://weidixie.github.io">Weidi Xie</a></span>
+						</center>
+					</td>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:18pt"><a href="https://www.robots.ox.ac.uk/~albanie/">Samuel Albanie</a></span>
+						</center>
+					</td>
+				</tr>
+			<table align=center width=250px>
+				<tr>
+					<td align=center width=120px>
+						<center>
+							<span style="font-size:18pt"><a href='https://arxiv.org/pdf/2203.12614.pdf'>[Paper]</a></span>
+						</center>
+					</td>
+					<td align=center width=120px>
+						<center>
+							<span style="font-size:18pt"><a href='https://github.com/NoelShin/reco'>[GitHub]</a></span><br>
+						</center>
+					</td>
+				</tr>
+			</table>
+		</table>
+	</center>
+	</br>
+	<!--Teaser image-->
+	<table align=center width=600px>
+		<tr>
+			<td>
+  			<img style="width: 850px" src="./resources/teaser.png"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<br/>
+			</td>
+		</tr>
+		<!-- description for the teaser -->
+		<tr>
+			<td>
+					<div style="text-align: justify; width: 850px">
+						We propose ReCo, a new framework for semantic segmentation zero-shot transfer without pixel supervision.
+						The figure depicts ReCo segmentations for COCO-Stuff, indicating promising results in the challenging zero-shot transfer setting.
+    				We also illustrate results with unsupervised adaptation to the target distribution (ReCo$+$), trading flexibility for improved segmentation quality.
+					</div>
+			</td>
+		<tr>
+		</tr>
+	</table>
+
+	<hr>
+
+	<!--Abstract-->
+	<table align=center width=850px>
+		<center><h1>Abstract</h1></center>
+		<tr>
+			<td>
+				<div style="text-align: justify">
+					Semantic segmentation has a broad range of applications, but its real-world impact has been significantly limited by the prohibitive annotation costs necessary to enable deployment.
+					Segmentation methods that forgo supervision can side-step these costs, but exhibit the inconvenient requirement to provide labelled examples from the target distribution to assign concept names to predictions.
+					An alternative line of work in language-image pre-training has recently demonstrated the potential to produce models that can both assign names across large vocabularies of concepts and enable zero-shot transfer for classification, but do not demonstrate commensurate segmentation abilities.
+
+					In this work, we strive to achieve a synthesis of these two approaches that combines their strengths.
+					We leverage the retrieval abilities of one such language-image pre-trained model, CLIP, to dynamically curate training sets from unlabelled images for arbitrary collections of concept names, and leverage the robust correspondences offered by
+					modern image representations to co-segment entities among the resulting collections.
+					The synthetic segment collections are then employed to construct a
+					segmentation model (without requiring pixel labels) whose knowledge of concepts is inherited from the scalable pre-training process of CLIP.
+					We demonstrate that our approach, termed <b>Re</b>trieve and <b>Co</b>-segment (ReCo) performs favourably to unsupervised segmentation approaches while inheriting the convenience of nameable predictions and zero-shot transfer.
+					We also demonstrate ReCo's ability to generate specialist segmenters for extremely rare objects.
+					Code is available at <a href='https://github.com/NoelShin/reco'>https://github.com/NoelShin/reco</a>.
+				</div>
+			</td>
+		</tr>
+	</table>
+	<br>
+
+	<hr>
+
+	<!--Overview image of PixelPick-->
+	<table align=center width=850px>
+		<center><h1>Overview</h1></center>
+		<tr>
+			<td>
+				<img class="round" style="width:850px" src="./resources/reco.gif"/>
+
+					<!-- <img class="round" style="width:850px" src="./resources/overview.png"/> -->
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<br>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div style="text-align: justify">
+					In this work, we propose ReCo, a framework for open vocabulary semantic segmentation zero-shot transfer.
+          <b>Top:</b> (1) Given a large-scale unlabelled dataset for indexing images, and a category to segment, we first curate an archive of $k$ images from the unlabelled collection using CLIP.
+    			(2) Using a pre-trained visual encoder (e.g., MoCov2, DeiT-S/16-SIN), we extract dense features from the archive images, which are used to a generate reference image embedding for the given category via a a co-segmentation process.
+    			<b>Bottom:</b> (3) During inference, the reference image is employed to produce an initial segmentation of the target concept which is refined with DenseCLIP. $\otimes$ and $\odot$ denote inner product and Hadamard product, respectively.
+				</div>
+			</td>
+		</tr>
+	</table>
+	<br>
+
+	<hr>
+
+	<table align=center width=850px>
+		<center><h1>Ablation study</h1></center>
+		<tr>
+			<td>
+				<div class="row_imgs" align=center>
+					<img src="resources/ablation_study.png" width=95%>
+					<div class="clear"></div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div style="text-align: justify">
+					<b>Left:</b> Image retrieval performance of different CLIP models on the ImageNet1K validation set with $k$ ranging from 5 to 50.
+     			ViT-L/14@336px performs particularly strongly, suggesting the ability to curate archives of high purity.
+			    <b>Right:</b> Co-segmentation performance on PASCAL-Context validation set as we vary the archive size and choice of visual encoders.
+			    We observe a general trend towards improved performance with increasing archive size for all encoders.
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div class="row_imgs" align=center>
+					<img src="resources/reco_components.png" width=40%>
+					<div class="clear"></div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div style="text-align: justify">
+					Influence of ReCo components for zero-shot transfer on PASCAL-Context.
+					We observe that integrating DenseCLIP during inference,
+					Language-guided co-segmentation (LGC),
+					Context elimination (CE), and CRF post-processing each contribute to improved performance.
+					All comparisons use a DeiT-SIN visual backbone for co-segmentation and ViT-L/14@336px for archive curation.
+				</div>
+			</td>
+		</tr>
+
+	</table>
+	<br>
+
+	<hr>
+
+	<table align=center width=850px>
+		<center><h1>Results on the unsupervised semantic segmentation benchmarks</h1></center>
+		<tr>
+			<td>
+				<div class="row_imgs" align=center>
+					<img src="resources/results.png" width=95%>
+					<div class="clear"></div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<br>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div style="text-align: justify">
+					Comparison to state-of-the art approaches on COCO-Stuff (left), Cityscapes (middle), and KITTI-STEP (right) validation sets. $\dagger$Models trained on Waymo Open and evaluated at the original resolution.
+					The best score for each metric under each protocol is highlighted in bold.
+					We observe that ReCo and ReCo+ perform strongly relative to prior work under zero-shot transfer and unsupervised adaptation protocols, respectively.
+				</div>
+			</td>
+		</tr>
+
+	</table>
+	<br>
+
+	<hr>
+
+	<table align=center width=450px>
+		<center><h1>Citation</h1></center>
+		<tr>
+			<td><a href="resources/reco_arxiv.pdf"><img class="layered-paper-big" style="height:175px" src="./resources/paper.png"/></a></td>
+			<td><span style="font-size:14pt">Gyungin Shin, Weidi Xie, Samuel Albanie<br>
+				<b>ReCo: Retrieve and Co-segment for Zero-shot Transfer</b><br>
+				<span>arXiv, 2022</span>
+				<span style="font-size:4pt"><a href="#"><br></a>
+				</span>
+			</td>
+		</tr>
+	</table>
+	<br>
+
+	<table align=center width=600px>
+		<tr>
+			<td><span style="font-size:18pt"><center>
+				<a href="resources/bibtex.txt" download>[Bibtex]</a>
+			</center></td>
+		</tr>
+	</table>
+
+	<hr>
+	<br>
+
+	<table align=center width=900px>
+		<tr>
+			<td width=400px>
+				<left>
+					<center><h1>Acknowledgements</h1></center>
+					GS is supported by AI Factory, Inc. in Korea.GS would like to thank Yash Bhalgat, Tengda Han, Charig Yang, Guanqi Zhan, and Chuhan Zhang for proof-reading. The design of this project page was borrowed and
+					modified from the template made by
+					<a href="http://web.mit.edu/phillipi/">Phillip Isola</a> and
+					<a href="http://richzhang.github.io/">Richard Zhang</a>.
+				</left>
+			</td>
+		</tr>
+	</table>
+
+<br>
+</body>
+</html>
