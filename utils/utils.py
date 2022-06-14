@@ -53,7 +53,7 @@ def get_model(
     model.requires_grad_(False)
     model.eval()
     print(f"{model_name} is successfully loaded.")
-    return model  # , model_name
+    return model
 
 
 # copied from https://github.com/mhamilton723/STEGO/blob/master/src/data.py
@@ -129,7 +129,6 @@ def get_dataset(
     elif dataset_name == "pascal_context":
         from datasets.pascal_context import pascal_context_categories, PascalContextDataset, pascal_context_pallete
 
-        # dir_dataset = f"{dir_datasets}/VOCdevkit/VOC2010"
         dataset = PascalContextDataset(
             dir_dataset=dir_dataset,
             split=split,
@@ -141,7 +140,7 @@ def get_dataset(
 
     elif dataset_name == "kitti_step":
         from datasets.kitti_step import KittiStepDataset, kitti_step_categories, kitti_step_palette
-        # dir_dataset = f"{dir_datasets}/kitti_step"
+
         dataset = KittiStepDataset(
             dir_dataset=dir_dataset,
             split=split,

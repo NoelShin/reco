@@ -1,10 +1,9 @@
 ## ReCo: Retrieve and Co-segment for Zero-shot Transfer 
 Official PyTorch implementation for ReCo. Details can be found in the paper. [[Project page]](https://www.robots.ox.ac.uk/~vgg/research/reco)
 
-![Alt Text](project_page/resources/reco.gif)
+![Alt Text](project_page/resources/reco_no_loop.gif)
 
 ### Contents
-* [Demo](#demo) [To be updated]
 * [Preparation](#preparation)
 * [ReCo inference](#reco-inference)
 * [ReCo+ training/inference](#reco+-training/inference)
@@ -12,8 +11,9 @@ Official PyTorch implementation for ReCo. Details can be found in the paper. [[P
 * [Citation](#citation) [To be updated]
 * [Acknowledgements](#acknowledgements)
 
-### Demo
-To be updated.
+[comment]: <> (### Demo)
+
+[comment]: <> (To be updated.)
 
 [comment]: <> (Please visit [LINK] for the ReCo demo. )
 
@@ -89,7 +89,7 @@ It is worth noting that it will firstly extract and save image embeddings for th
 This process occurs only for the first time and takes up to a few hours.
 If you want to avoid this, please download the pre-computed image embeddings via this [link (~4.3 GB)](https://www.robots.ox.ac.uk/~vgg/research/reco/shared_files/filename_to_ViT_L_14_336px_train_img_embedding.pkl) and put the downloaded file into your ImageNet2012 directory.
 
-In addition, if you also want to avoid computing reference image embeddings for categories in a benchmark, please download the pre-computed reference image embeddings file for the benchmark and put it into the benchmark directory (e.g., put reference image embeddings for Cityscapes categories into your Cityscapes directory):
+In addition, if you also want to avoid computing reference image embeddings for categories in a benchmark, please download the pre-computed reference image embeddings file for the benchmark and put it into the benchmark directory (e.g., put reference image embeddings for the Cityscapes categories into your Cityscapes directory):
 * [Cityscapes](https://www.robots.ox.ac.uk/~vgg/research/reco/shared_files/cityscapes/deit_s_16_sin_in_train_ce_ta_cat_to_img_feature_k50.pkl) (27 categories)
 * [COCO-Stuff](https://www.robots.ox.ac.uk/~vgg/research/reco/shared_files/coco_stuff/deit_s_16_sin_in_train_ce_ta_cat_to_img_feature_k50.pkl) (171 categories)
 * [KITTI-STEP](https://www.robots.ox.ac.uk/~vgg/research/reco/shared_files/kitti_step/deit_s_16_sin_in_train_ce_ta_cat_to_img_feature_k50.pkl) (19 categories)

@@ -10,8 +10,6 @@ import torch.nn.functional as F
 from mmcv.cnn import build_conv_layer, build_norm_layer, build_plugin_layer
 from mmcv.runner import BaseModule, Sequential
 from mmcv.utils.parrots_wrapper import _BatchNorm
-from mmseg.models.builder import BACKBONES
-# from mmseg.models.utils import ResLayer
 import clip
 from utils.extract_text_embeddings import prompt_engineering
 
@@ -922,62 +920,3 @@ class DenseCLIP(nn.Module):
         visual_features = self.v_proj(stage4)
         features = self.c_proj(visual_features)
         return features
-
-
-if __name__ == '__main__':
-    from PIL import Image
-    from torchvision.transforms.functional import normalize, to_tensor
-    import matplotlib.pyplot as plt
-
-    # set a gpu id
-    gpu_id: int = 0
-    device = torch.device(f"cuda:{gpu_id}")
-
-    # load a denseclip model
-    arch_name = "RN50x16"
-    categories = ["road", "agriculture", "water"]
-    denseclip = DenseCLIP(categories=categories, arch_name=arch_name).to(device)
-
-    # load an example image
-    pil_img: Image.Image = Image.open("example.jpg").convert("RGB")
-
-    # convert the image to a torch tensor - i used the commonly used mean and std of ImageNet.
-    img: torch.Tensor = normalize(to_tensor(pil_img), mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-
-    # add an extra dimension for a batch axis
-    # img: 3 x H x W -> 1 x 3 x H x W
-    img = img[None]
-
-    # prediction: 1 x len(categories) x h x w -> len(categories) x h x w
-    prediction: torch.Tensor = denseclip(img=img.to(device)).squeeze(dim=0)
-
-    # if you want, you can upsample the prediction here
-    # prediction: len(categories) x h x w -> len(categories) x H x W
-    prediction: torch.Tensor = torch.nn.functional.interpolate(prediction[None], (img.shape[-2:]), mode="bilinear")[0]
-
-    # prediction: len(categories) x H x W -> H x W
-    prediction: np.ndarray = torch.argmax(prediction, dim=0).cpu().numpy()
-
-    # visualise the prediction - i used a simple palette for this, but you can customise it as needed
-    category_to_palette: Dict[str, List[int]] = {
-        "road": [255, 0, 0],  # red
-        "agriculture": [0, 255, 0],   # green
-        "water": [0, 0, 255]  # blue
-    }
-
-    # grid: H x W x 3
-    grid: np.ndarray = np.zeros((*prediction.shape, 3), dtype=np.uint8)
-    for label_id, category in enumerate(categories):
-        grid[prediction == label_id] = category_to_palette[category]
-
-    # save the prediction
-    grid: Image.Image = Image.fromarray(grid)
-    grid.save("output.png")
-
-    # save the image overlaid with prediction
-    plt.figure(figsize=(4, 3))  # the fig size is decided by the ratio of the example image
-    plt.imshow(pil_img)
-    plt.imshow(grid, alpha=0.5)  # make the prediction transparent
-    plt.axis("off")
-    plt.tight_layout(pad=0.0)
-    plt.savefig("overlaid_image.png")

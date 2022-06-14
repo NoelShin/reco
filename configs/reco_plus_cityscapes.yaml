@@ -1,7 +1,8 @@
 # directory configurations - change the below three lines as appropriate
 dir_ckpt: "/users/gyungin/reco/ckpt"  # Change this to your checkpoint directory.
 dir_dataset: "/users/gyungin/datasets/cityscapes"  # Change this to your dataset directory.
-dir_pseudo_masks: "/users/gyungin/denseclip/analysis/reco/cosegmentation/ckpt_v3/cityscapes_train/deit_s_16_sin_in_train_ce_ta/k050/dt_crf"
+dir_pseudo_masks: "/users/gyungin/reco/ckpt/cityscapes/train/reco/deit_s_16_sin_in_train_ce_ta_dc/k050/dt_crf"
+# "/users/gyungin/denseclip/analysis/reco/cosegmentation/ckpt_v3/cityscapes_train/deit_s_16_sin_in_train_ce_ta/k050/dt_crf"
 
 dataset_name: "cityscapes"  # ["cityscapes", "coco_stuff", "kitti_step"]
 

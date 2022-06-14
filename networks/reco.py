@@ -109,7 +109,7 @@ class ReCo:
             imgs: torch.Tensor,  # b x 3 x H x W
             text_feature: torch.Tensor,  # c or n x c,
             output_size: Optional[Tuple] = None,  # (h, w)
-            temperature=10#: float = 10.0
+            temperature: float = 10.0
     ) -> torch.Tensor:
         img_features: torch.Tensor = self.dense_clip(imgs)
         img_features = img_features / img_features.norm(dim=1, keepdim=True)
@@ -356,20 +356,25 @@ class ReCo:
 
 
 if __name__ == '__main__':
+    # extract image reference embeddings for categories of ImageNet1K.
+    import os
     from argparse import ArgumentParser, Namespace
-    from datetime import datetime
+    import json
     import yaml
+    import numpy as np
+    import torch
+    from PIL import Image
+    import matplotlib.pyplot as plt
+    from networks.reco import ReCo
 
-    parser = ArgumentParser("ReCo")
+    parser = ArgumentParser("ReCo Evaluation")
     parser.add_argument("--p_config", type=str, default="", required=True)
-    parser.add_argument("--gpu_id", type=int, default=3)
-    parser.add_argument(
-        "--dataset_name", "-dn", type=str, default="pascal_context",
-        choices=["cityscapes", "coco_stuff", "pascal_context", "kitti_step"]
-    )
+    parser.add_argument("--gpu_id", type=int, default=2)
     parser.add_argument("--debug", "-d", action="store_true")
     parser.add_argument("--seed", "-s", default=0, type=int)
+    parser.add_argument("--split", type=str, default="val", choices=["train", "val"])
     parser.add_argument("--suffix", type=str, default='')
+    parser.add_argument("--size", type=int, default=384, help="img size of training imgs")
     args = parser.parse_args()
 
     args: Namespace = parser.parse_args()
@@ -379,26 +384,38 @@ if __name__ == '__main__':
     args.update(base_args)
     args: Namespace = Namespace(**args)
 
-    args.dir_ckpt = f"{args.dir_ckpt}/reco/{datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}"
-    os.makedirs(args.dir_ckpt, exist_ok=True)
-    print(f"\n====={args.dir_ckpt} is created.=====\n")
-    json.dump(vars(args), open(f"{args.dir_ckpt}/config.json", 'w'), indent=2, sort_keys=True)
+    def get_experim_name(args: Namespace) -> str:
+        # decide an experim name
+        list_keywords: List[str] = [
+            args.encoder_arch.replace('-', '_').replace('/', '_').lower(), f"in_{args.imagenet_split}"
+        ]
+        if args.context_elimination:
+            list_keywords.append("ce")
+        if args.text_attention:
+            list_keywords.append("ta")
+        list_keywords.append(args.suffix) if args.suffix != '' else None
+        return '_'.join(list_keywords)
 
-    os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
+    experim_name = get_experim_name(args)
 
-    # decide ckpt directory
-    list_keywords: List[str] = [
-        args.encoder_arch.replace('-', '_').replace('/', '_').lower(), f"in_{args.imagenet_split}"
-    ]
-    if args.context_elimination:
-        list_keywords.append("ce")
-    if args.text_attention:
-        list_keywords.append("ta")
-    list_keywords.append(args.suffix) if args.suffix != '' else None
-    experim_name = '_'.join(list_keywords)
+    # add "dc" if args.dense_clip_inference is True. Note that this does not affect image feature.
+    _experim_name = experim_name + "_dc" if args.dense_clip_inference else experim_name
+
+    dir_ckpt: str = f"{args.dir_ckpt}/{args.dataset_name}/{args.split}/reco/{_experim_name}/k{args.n_imgs:03d}"
+    dir_dt_masks = f"{dir_ckpt}/dt"
+    dir_dt_masks_crf = f"{dir_ckpt}/dt_crf"
+    os.makedirs(dir_dt_masks, exist_ok=True)
+    os.makedirs(dir_dt_masks_crf, exist_ok=True)
+
+    print(f"\n====={dir_ckpt} is created.=====\n")
+    # json.dump(vars(args), open(f"{dir_ckpt}/config.json", 'w'), indent=2, sort_keys=True)
+
     p_category_to_img_feature: str = f"{args.dir_dataset}/{experim_name}_cat_to_img_feature_k{args.n_imgs}.pkl"
 
+    # load an index dataset if needed
     if not os.path.exists(p_category_to_img_feature):
+        from datasets.imagenet1k import ImageNet1KDataset
+
         index_dataset = ImageNet1KDataset(
             dir_dataset=args.dir_imagenet,
             split=args.imagenet_split,
@@ -409,18 +426,38 @@ if __name__ == '__main__':
     else:
         index_dataset = None
 
+    # load categories for ImageNet1k
+    # copied from https://github.com/raghakot/keras-vis/blob/master/resources/imagenet_class_index.json
+    label_id_to_wnid_cat = json.load(open("/users/gyungin/datasets/ImageNet2012/imagenet_class_index.json", "r"))
+
+    # exclude crane and maillot categories
+    categories = list()
+    wnid_to_cat: dict = dict()
+    for label_id, wnid_cat in label_id_to_wnid_cat.items():
+        wnid, cat = wnid_cat
+        if cat in ["crane", "maillot"]:
+            continue
+        categories.append(cat.replace('_', ' '))  # replace an underscore by a space
+
+    with open("imagenet1k_categories.txt", 'w') as f:
+        for c in categories:
+            f.write(f"{c}\n")
+        f.close()
+
+    device: torch.device = torch.device("cuda:0")
+
     reco = ReCo(
         index_dataset=index_dataset,
         k=args.n_imgs,
         categories=categories,
         encoder_arch=args.encoder_arch,
+        dense_clip_arch=args.dense_clip_arch,
+        dense_clip_inference=args.dense_clip_inference,
         p_category_to_img_feature=p_category_to_img_feature,
         text_attention=args.text_attention,
         context_elimination=args.context_elimination,
-        device=torch.device("cuda:0"),
-        visualise=True
+        context_categories=args.context_categories,
+        device=device,
+        visualise=False,
+        dir_ckpt=dir_ckpt
     )
-
-
-
-
