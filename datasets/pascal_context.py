@@ -7,8 +7,6 @@ from torchvision.transforms.functional import center_crop, normalize, resize, to
 
 from torch.utils.data import Dataset, DataLoader
 from PIL import Image
-from tqdm import tqdm
-# from analysis.reco.datasets.utils import get_embeddings
 
 
 class PascalContextDataset(Dataset):

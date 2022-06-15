@@ -1,5 +1,10 @@
-## ReCo: Retrieve and Co-segment for Zero-shot Transfer 
-Official PyTorch implementation for ReCo. Details can be found in the paper. [[Project page]](https://www.robots.ox.ac.uk/~vgg/research/reco)
+## ReCo: Retrieve and Co-segment for Zero-shot Transfer
+Official PyTorch implementation for ReCo. Details can be found in the paper.
+[[Paper]](https://arxiv.org/pdf/2206.07045.pdf) [[Project page]](https://www.robots.ox.ac.uk/~vgg/research/reco)
+
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/reco-retrieve-and-co-segment-for-zero-shot/unsupervised-semantic-segmentation-on)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on?p=reco-retrieve-and-co-segment-for-zero-shot)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/reco-retrieve-and-co-segment-for-zero-shot/unsupervised-semantic-segmentation-on-coco-4)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on-coco-4?p=reco-retrieve-and-co-segment-for-zero-shot)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/reco-retrieve-and-co-segment-for-zero-shot/unsupervised-semantic-segmentation-on-kitti)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on-kitti?p=reco-retrieve-and-co-segment-for-zero-shot)
 
 ![Alt Text](project_page/resources/reco_no_loop.gif)
 
@@ -8,7 +13,7 @@ Official PyTorch implementation for ReCo. Details can be found in the paper. [[P
 * [ReCo inference](#reco-inference)
 * [ReCo+ training/inference](#reco+-training/inference)
 * [Pre-trained weights](#pre-trained-weights)
-* [Citation](#citation) [To be updated]
+* [Citation](#citation)
 * [Acknowledgements](#acknowledgements)
 
 [comment]: <> (### Demo)
@@ -28,7 +33,7 @@ Please visit following links to download datasets:
 
 It is worth noting that Cityscapes, ImageNet2012, and KITTI-STEP require you to sign up an account.
 
-To reimplement ReCo+ on COCO-Stuff as in our paper, you additionally need to download [COCO-Stuff10K](https://github.com/nightrome/cocostuff10k). 
+To reimplement ReCo+ on COCO-Stuff as in our paper, you additionally need to download [COCO-Stuff10K](https://github.com/nightrome/cocostuff10k).
 
 Please don't change the (sub)directory name(s) as the code assumes the original directory names.
 We advise you to put the downloaded dataset(s) into the following directory structure for ease of implementation:
@@ -62,7 +67,7 @@ conda install -c conda-forge matplotlib
 conda install -c conda-forge timm
 conda install -c conda-forge opencv
 conda install -c anaconda ujson
-conda install -c conda-forge pyyaml 
+conda install -c conda-forge pyyaml
 pip install opencv-python
 pip install git+https://github.com/lucasb-eyer/pydensecrf.git
 pip install git+https://github.com/openai/CLIP.git
@@ -137,23 +142,14 @@ COCO-Stuff| 32.6 | 54.1 |[weights](https://www.robots.ox.ac.uk/~vgg/research/rec
 KITTI-STEP| 31.9 | 75.3 |[weights](https://www.robots.ox.ac.uk/~vgg/research/reco/shared_files/kitti_step/reco_plus_dlp_rn101_kitti_step.pt) (~183.1 MB)
 
 ### Citation
-To be updated.
-
-[comment]: <> (```)
-
-[comment]: <> (@article{shin2022reco,    )
-
-[comment]: <> (  author = {Gyungin Shin and Weidi Xie and Samuel Albanie},)
-
-[comment]: <> (  title = {ReCo: Retrieve and Co-segment for Zero-shot Transfer},)
-
-[comment]: <> (  journal = {},)
-
-[comment]: <> (  year = {2022})
-
-[comment]: <> (})
-
-[comment]: <> (```)
+```
+@article{shin2022reco,
+  author = {Shin, Gyungin and Xie, Weidi and Albanie, Samuel},
+  title = {ReCo: Retrieve and Co-segment for Zero-shot Transfer},
+  journal = {arXiv:2206.07045},
+  year = {2022}
+}
+```
 
 ### Acknowledgements
 We borrowed the code for CLIP, DeepLabv3+, DenseCLIP, DINO, ViT from

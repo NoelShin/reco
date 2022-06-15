@@ -50,8 +50,6 @@ class CityscapesDataset(BaseDataset):
         self.p_gts: List[str] = sorted(glob(f"{dir_dataset}/gtFine/{split}/**/*_gtFine_labelIds.png"))
 
         self.model_name: str = model_name
-        # if model_name is not None:
-        #     self.cat_to_text_embedding: Dict[str, torch.FloatTensor] = self._get_embeddings(embedding_type="text")
         self.n_categories: int = 27
         self.use_augmentation = False
         self.mean = [0.485, 0.456, 0.406]
@@ -64,43 +62,6 @@ class CityscapesDataset(BaseDataset):
             assert len(self.p_pseudo_gts) > 0
         else:
             self.p_pseudo_gts: list = []
-
-    def _get_embeddings(
-            self,
-            embedding_type: str,
-            split: str = "train"
-    ) -> Dict[str, torch.FloatTensor]:
-        assert embedding_type in ["img", "text"], ValueError(embedding_type)
-        if embedding_type == "img":
-            assert split in ["train", "val"]
-            p_filename_to_img_embedding: str =\
-                f"{self.dir_dataset}/{self.model_name}_filename_to_{split}_img_embedding.pkl"
-            filename_to_img_embedding: Dict[str, torch.FloatTensor]
-            try:
-                filename_to_train_img_embedding = pkl.load(open(p_filename_to_img_embedding, "rb"))
-                print(f"A filename_to_img_feature files is loaded from {p_filename_to_img_embedding}.")
-
-            except FileNotFoundError:
-                filename_to_train_img_embedding = extract_image_embeddings(
-                    p_imgs=getattr(self, f"p_{split}_imgs"),
-                    model_name=self.model_name,
-                    fp=p_filename_to_img_embedding
-                )
-            return filename_to_train_img_embedding
-
-        else:
-            p_cat_to_text_embedding: str = f"{self.dir_dataset}/{self.model_name}_cat_to_text_embedding.pkl"
-            cat_to_text_embedding: Dict[str, torch.FloatTensor]
-            try:
-                cat_to_text_embedding = pkl.load(open(p_cat_to_text_embedding, "rb"))
-                print(f"A filename_to_text_feature files is loaded from {p_cat_to_text_embedding}.")
-            except FileNotFoundError:
-                cat_to_text_embedding = prompt_engineering(
-                    categories=cityscapes_categories,
-                    model_name=self.model_name.replace("clip_", ''),
-                    fp=p_cat_to_text_embedding
-                )
-            return cat_to_text_embedding
 
     def __getitem__(self, index):
         if self.use_augmentation:

@@ -53,11 +53,11 @@ class COCOStuffDataset(BaseDataset):
 
         if "10k" in split:
             # noel
-            with open(f"/users/gyungin/datasets/cocostuff10k/imageLists/{split.replace('10k', '')}.txt", "r") as f:
+            with open(f"{self.dir_dataset}10k/imageLists/{split.replace('10k', '')}.txt", "r") as f:
                 lines = f.readlines()
                 filenames = [line.replace('\n', '') for line in lines]
-                self.image_files = [f"/users/gyungin/datasets/cocostuff10k/images/{fn}.jpg" for fn in filenames]
-                self.label_files = [f"/users/gyungin/datasets/cocostuff10k/annotations/{fn}.mat" for fn in filenames]
+                self.image_files = [f"{self.dir_dataset}10k/images/{fn}.jpg" for fn in filenames]
+                self.label_files = [f"{self.dir_dataset}10k/annotations/{fn}.mat" for fn in filenames]
                 f.close()
 
         else:
