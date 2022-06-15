@@ -2,9 +2,9 @@
 Official PyTorch implementation for ReCo. Details can be found in the paper.
 [[Paper]](https://arxiv.org/pdf/2206.07045.pdf) [[Project page]](https://www.robots.ox.ac.uk/~vgg/research/reco)
 
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/reco-retrieve-and-co-segment-for-zero-shot/unsupervised-semantic-segmentation-on)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on?p=reco-retrieve-and-co-segment-for-zero-shot)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/reco-retrieve-and-co-segment-for-zero-shot/unsupervised-semantic-segmentation-on-coco-4)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on-coco-4?p=reco-retrieve-and-co-segment-for-zero-shot)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/reco-retrieve-and-co-segment-for-zero-shot/unsupervised-semantic-segmentation-on-kitti)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on-kitti?p=reco-retrieve-and-co-segment-for-zero-shot)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/reco-retrieve-and-co-segment-for-zero-shot-1/unsupervised-semantic-segmentation-on)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on?p=reco-retrieve-and-co-segment-for-zero-shot-1)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/reco-retrieve-and-co-segment-for-zero-shot-1/unsupervised-semantic-segmentation-on-coco-4)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on-coco-4?p=reco-retrieve-and-co-segment-for-zero-shot-1)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/reco-retrieve-and-co-segment-for-zero-shot-1/unsupervised-semantic-segmentation-on-kitti)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on-kitti?p=reco-retrieve-and-co-segment-for-zero-shot-1)
 
 ![Alt Text](project_page/resources/reco_no_loop.gif)
 
