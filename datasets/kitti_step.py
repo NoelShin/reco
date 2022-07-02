@@ -1,15 +1,12 @@
 # modifed based on https://github.com/mhamilton723/STEGO/blob/master/src/data.py
 import os
 from glob import glob
-from typing import Dict, Optional, Union, List, Tuple
-import pickle as pkl
+from typing import Dict, Optional, Union, List
 import numpy as np
 import torch.multiprocessing
 from PIL import Image
 import torchvision.transforms.functional as TF
-from torchvision.transforms.functional import center_crop, normalize, resize, to_tensor
-from utils.extract_text_embeddings import prompt_engineering
-from utils.extract_image_embeddings import extract_image_embeddings
+from torchvision.transforms.functional import normalize, to_tensor
 from datasets.base_dataset import BaseDataset
 
 

@@ -1,15 +1,8 @@
-import os
 from typing import Dict, List, Optional, Tuple, Union
 import pickle as pkl
-import ujson as json
-import numpy as np
 import torch
 import torch.nn.functional as F
-from torch.utils.data import Dataset, DataLoader
-import matplotlib.pyplot as plt
-from PIL import Image
-from tqdm import tqdm
-from datasets.imagenet1k import ImageNet1KDataset
+from torch.utils.data import Dataset
 from utils.utils import get_model
 from utils.extract_text_embeddings import prompt_engineering
 

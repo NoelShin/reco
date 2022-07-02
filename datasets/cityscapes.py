@@ -2,8 +2,7 @@
 import os
 from glob import glob
 import random
-from typing import Dict, Optional, Union, List, Tuple
-import pickle as pkl
+from typing import Optional, List
 import numpy as np
 import torch.multiprocessing
 from PIL import Image

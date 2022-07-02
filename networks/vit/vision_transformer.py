@@ -303,22 +303,14 @@ class VisionTransformer(nn.Module):
         return encoder_output.view(b, h_emb, w_emb, c).permute(0, 3, 1, 2)
 
     # noel
-    def forward(self, input_img: torch.Tensor) -> torch.Tensor:  #, layer: Optional[str] = None):
+    def forward(self, input_img: torch.Tensor) -> torch.Tensor:
         x: torch.Tensor = self.prepare_tokens(input_img)
 
-        # features: dict = {}
         for i, blk in enumerate(self.blocks):
             x = blk(x)
-            # features[f"layer{i + 1}"] = self.norm(x)
         x = self.norm(x)
         x = x[:, 1:, ...]  # exclude a [CLS] token
         return self.restore_spatial_dimensions(input_img=input_img, encoder_output=x)
-        # return x
-
-        # if layer is not None:
-        #     return features[layer]
-        # else:
-        #     return features
 
     # noel - for DINO's visual
     def get_last_selfattention(self, x):

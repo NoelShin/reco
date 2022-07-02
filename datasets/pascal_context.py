@@ -1,11 +1,11 @@
 import os
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Union
 import numpy as np
 import torch
 import torchvision.transforms.functional as TF
-from torchvision.transforms.functional import center_crop, normalize, resize, to_tensor
+from torchvision.transforms.functional import normalize, to_tensor
 
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset
 from PIL import Image
 
 

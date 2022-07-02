@@ -4,7 +4,7 @@ import torch.multiprocessing
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision.transforms import ColorJitter, RandomApply, RandomGrayscale
-from datasets.augmentations.geometric_transforms import random_crop, random_hflip, random_scale, resize
+from datasets.augmentations.geometric_transforms import random_crop, random_hflip, random_scale
 from datasets.augmentations.gaussian_blur import GaussianBlur
 
 

@@ -202,7 +202,6 @@ class Transformer(nn.Module):
         super().__init__()
         self.width = width
         self.layers = layers
-        # self.resblocks = nn.Sequential(*[ResidualAttentionBlock(width, heads, attn_mask) for _ in range(layers)])
         self.resblocks = nn.ModuleList([ResidualAttentionBlock(width, heads, attn_mask) for _ in range(layers)])
 
     def forward(self, x: torch.Tensor, return_interm_tokens: bool = False, return_attn: bool = True):

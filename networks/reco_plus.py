@@ -303,7 +303,7 @@ if __name__ == '__main__':
     from argparse import ArgumentParser, Namespace
     from utils.utils import get_dataset
     import os
-    from typing import Dict, List, Optional
+    from typing import Optional
     import yaml
     import ujson as json
     import numpy as np
