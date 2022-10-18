@@ -449,7 +449,7 @@ coco_stuff_182_to_27 = {
 coco_stuff_182_to_171: dict = {}
 cnt: int = 0
 for label_id in coco_stuff_182_to_27:
-    if label_id in [12, 26, 29, 30, 45, 66, 68, 69, 71, 83, 91]:
+    if label_id + 1 in [12, 26, 29, 30, 45, 66, 68, 69, 71, 83, 91]:  # note that +1 is added
         continue
     coco_stuff_182_to_171[label_id] = cnt
     cnt += 1
@@ -457,7 +457,7 @@ for label_id in coco_stuff_182_to_27:
 coco_stuff_171_to_27 = dict()
 cnt = 0
 for fine, coarse in coco_stuff_182_to_27.items():
-    if fine in [12, 26, 29, 30, 45, 66, 68, 69, 71, 83, 91]:
+    if fine + 1 in [12, 26, 29, 30, 45, 66, 68, 69, 71, 83, 91]:  # note that +1 is added
         continue
     coco_stuff_171_to_27[cnt] = coarse
     cnt += 1
