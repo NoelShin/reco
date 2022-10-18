@@ -1,5 +1,5 @@
 ## ReCo: Retrieve and Co-segment for Zero-shot Transfer
-Official PyTorch implementation for ReCo. Details can be found in the paper.
+Official PyTorch implementation for ReCo (NeurIPS 2022). Details can be found in the paper.
 [[Paper]](https://arxiv.org/pdf/2206.07045.pdf) [[Project page]](https://www.robots.ox.ac.uk/~vgg/research/reco)
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/reco-retrieve-and-co-segment-for-zero-shot-1/unsupervised-semantic-segmentation-with-3)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-with-3?p=reco-retrieve-and-co-segment-for-zero-shot-1)
@@ -21,7 +21,7 @@ Official PyTorch implementation for ReCo. Details can be found in the paper.
 
 [comment]: <> (To be updated.)
 
-[comment]: <> (Please visit [LINK] for the ReCo demo. )
+[comment]: <> (Please visit [LINK] for the ReCo demo.)
 
 ### Preparation
 #### 1. Download datasets
@@ -32,7 +32,7 @@ Please visit following links to download datasets:
 * [ImageNet2012](https://image-net.org/download.php)
 * [KITTI-STEP](http://www.cvlibs.net/datasets/kitti/eval_step.php)
 
-It is worth noting that Cityscapes, ImageNet2012, and KITTI-STEP require you to sign up an account.
+Note that Cityscapes, ImageNet2012, and KITTI-STEP require you to sign up an account.
 
 To reimplement ReCo+ on COCO-Stuff as in our paper, you additionally need to download [COCO-Stuff10K](https://github.com/nightrome/cocostuff10k).
 
@@ -91,7 +91,7 @@ To validate on Cityscapes, COCO-Stuff, or KITTI-STEP, move to `scripts` director
 ```shell
 bash reco_$DATASET_NAME.sh
 ```
-It is worth noting that it will firstly extract and save image embeddings for the ImageNet2012 images.
+Note that this will first extract and save image embeddings for the ImageNet2012 images.
 This process occurs only for the first time and takes up to a few hours.
 If you want to avoid this, please download the pre-computed image embeddings via this [link (~4.3 GB)](https://www.robots.ox.ac.uk/~vgg/research/reco/shared_files/filename_to_ViT_L_14_336px_train_img_embedding.pkl) and put the downloaded file into your ImageNet2012 directory.
 
@@ -101,8 +101,8 @@ In addition, if you also want to avoid computing reference image embeddings for 
 * [KITTI-STEP](https://www.robots.ox.ac.uk/~vgg/research/reco/shared_files/kitti_step/deit_s_16_sin_in_train_ce_ta_cat_to_img_feature_k50.pkl) (19 categories)
 
 ### ReCo+ training/inference
-Unlike ReCo, which does not involve any training, ReCo+ is trained on a training split of each benchmark.
-To avoid using human-annotations, ReCo+ utilises predictions by ReCo as pseudo-labels.
+Unlike ReCo, which does not involve any training, ReCo+ is trained on the training split of each benchmark.
+To avoid using human-annotations, ReCo+ utilises predictions made by ReCo as pseudo-labels.
 
 #### 1. Generate pseudo-masks
 To compute pseudo-masks for training ReCo+ on Cityscapes, COCO-Stuff, or KITTI-STEP, run
@@ -124,8 +124,7 @@ Then, run
 bash reco_plus_$DATASET_NAME.sh
 ```
 
-It is worth noting that an evaluation will be made at every 1,000 iterations during training and
-the weights for the best model will be saved at your checkpoint directory.
+Note that an evaluation will be made at every 1,000 iterations during training and the weights for the best model will be saved at your checkpoint directory.
 
 #### 3. Inference
 To run an inference script with pre-trained weights, please run
@@ -147,7 +146,7 @@ KITTI-STEP| 31.9 | 75.3 |[weights](https://www.robots.ox.ac.uk/~vgg/research/rec
 @article{shin2022reco,
   author = {Shin, Gyungin and Xie, Weidi and Albanie, Samuel},
   title = {ReCo: Retrieve and Co-segment for Zero-shot Transfer},
-  journal = {arXiv:2206.07045},
+  journal = {Advances in Neural Information Processing Systems (NeurIPS)},
   year = {2022}
 }
 ```
