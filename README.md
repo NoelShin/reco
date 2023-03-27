@@ -1,6 +1,6 @@
 ## ReCo: Retrieve and Co-segment for Zero-shot Transfer
 Official PyTorch implementation for ReCo (NeurIPS 2022). Details can be found in the paper.
-[[Paper]](https://arxiv.org/pdf/2206.07045.pdf) [[Project page]](https://www.robots.ox.ac.uk/~vgg/research/reco)
+[[Paper]](https://openreview.net/pdf?id=8ViFz-5Mnnv) [[Project page]](https://www.robots.ox.ac.uk/~vgg/research/reco)
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/reco-retrieve-and-co-segment-for-zero-shot-1/unsupervised-semantic-segmentation-with-3)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-with-3?p=reco-retrieve-and-co-segment-for-zero-shot-1)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/reco-retrieve-and-co-segment-for-zero-shot-1/unsupervised-semantic-segmentation-with-1)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-with-1?p=reco-retrieve-and-co-segment-for-zero-shot-1)
@@ -143,10 +143,10 @@ KITTI-STEP| 31.9 | 75.3 |[weights](https://www.robots.ox.ac.uk/~vgg/research/rec
 
 ### Citation
 ```
-@article{shin2022reco,
-  author = {Shin, Gyungin and Xie, Weidi and Albanie, Samuel},
+@inproceedings{shin2022reco,
   title = {ReCo: Retrieve and Co-segment for Zero-shot Transfer},
-  journal = {Advances in Neural Information Processing Systems (NeurIPS)},
+  author = {Shin, Gyungin and Xie, Weidi and Albanie, Samuel},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
   year = {2022}
 }
 ```
