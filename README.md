@@ -1,4 +1,14 @@
 ## ReCo: Retrieve and Co-segment for Zero-shot Transfer
+```
+                                              ____       ______    
+                                             / __ \___  / ____/___ 
+                                            / /_/ / _ \/ /   / __ \
+                                           / _, _/  __/ /___/ /_/ /
+                                          /_/ |_|\___/\____/\____/ 
+
+```
+
+
 Official PyTorch implementation for ReCo (NeurIPS 2022). Details can be found in the paper.
 [[Paper]](https://openreview.net/pdf?id=8ViFz-5Mnnv) [[Project page]](https://www.robots.ox.ac.uk/~vgg/research/reco)
 
